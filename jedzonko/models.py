@@ -10,4 +10,3 @@ class Recipe(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
     preparation_time = models.IntegerField(null=True)
     votes = models.IntegerField(default=0)
-
