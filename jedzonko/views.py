@@ -16,7 +16,10 @@ def recipes(request):
     return render(request, "app-recipes.html")
 
 def dashboard(request):
-    return render(request, "dashboard.html")
+
+    recipes = Recipe.objects.count()
+    return render(request, "dashboard.html", context={"recipes": recipes,})
+
 
 def show_recipe_id(request, id):
     return render(request, "app-recipe-details.html", {"id": id})
@@ -38,3 +41,4 @@ def add_schedule(request):
 
 def add_recipe_to_schedule(request):
     return render(request, "app-schedules-meal-recipe.html")
+
