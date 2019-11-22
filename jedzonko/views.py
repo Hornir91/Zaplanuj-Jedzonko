@@ -1,4 +1,4 @@
-from datetime import datetime
+from random import shuffle
 
 from django.shortcuts import render
 from django.views import View
@@ -11,11 +11,17 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
+
 class IndexView(View):
 
     def get(self, request):
         ctx = {"actual_date": datetime.now()}
-        return render(request, "index.html", ctx)
+        recipes = list(Recipe.objects.all())
+        shuffle(recipes)
+        recipe0 = recipes[0]
+        recipe1 = recipes[1]
+        recipe2 = recipes[2]
+        return render(request, "index.html", {"ctx": ctx, "recipe0": recipe0, "recipe1": recipe1, "recipe2": recipe2})
 
 
 def recipes(request):
@@ -26,11 +32,9 @@ def recipes(request):
     return render(request,  "app-recipes.html", context={"recipes": page},)
 
 def dashboard(request):
-
     recipes = Recipe.objects.count()
-
     recipeplans = RecipePlan.objects.count()
-    return render(request, "dashboard.html", context={"recipes": recipes,"recipeplans":recipeplans,})
+    return render(request, "dashboard.html", context={"recipes": recipes, "recipeplans": recipeplans})
 
 
 
