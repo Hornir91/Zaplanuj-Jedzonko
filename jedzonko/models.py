@@ -6,8 +6,9 @@ from datetime import datetime
 # Create your models here.
 class Recipe(models.Model):
     name = models.CharField(max_length=64)
-    ingredients = models.CharField(max_length=64)
-    description = models.TextField()
+    ingredients = models.TextField(null=True)
+    description = models.TextField(null=True)
+    preparing = models.TextField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     preparation_time = models.IntegerField(null=True)
@@ -19,6 +20,7 @@ class Plan(models.Model):
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     recipes = models.ManyToManyField(Recipe, through="RecipePlan")
+
 
 class DayChoices(Enum):
     Mon = "Monday"
