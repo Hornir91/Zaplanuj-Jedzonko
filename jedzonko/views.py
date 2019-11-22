@@ -20,7 +20,7 @@ class IndexView(View):
 
 def recipes(request):
     recipes = Recipe.objects.all().order_by('-created').order_by('-votes')
-    paginator = Paginator(recipes, 2)
+    paginator = Paginator(recipes, 50)
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
     return render(request,  "app-recipes.html", context={"recipes": page},)
