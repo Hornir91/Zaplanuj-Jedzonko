@@ -13,6 +13,7 @@ class Recipe(models.Model):
     updated = models.DateTimeField(auto_now=True)
     preparation_time = models.IntegerField(null=True)
     votes = models.IntegerField(default=0)
+    votes = models.IntegerField(default=0)
 
 class Plan(models.Model):
     name = models.CharField(max_length=64)
@@ -45,3 +46,4 @@ class RecipePlan(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     day_name = models.ForeignKey(DayName, on_delete=models.CASCADE)
+

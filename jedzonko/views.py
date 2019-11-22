@@ -3,8 +3,12 @@ from datetime import datetime
 from django.shortcuts import render
 from django.views import View
 from jedzonko.models import *
+
+from django.core.paginator import Paginator
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+
 
 
 class IndexView(View):
@@ -15,12 +19,19 @@ class IndexView(View):
 
 
 def recipes(request):
-    return render(request, "app-recipes.html")
+    recipes = Recipe.objects.all().order_by('-created').order_by('-votes')
+    paginator = Paginator(recipes, 2)
+    page_number = request.GET.get('page', 1)
+    page = paginator.get_page(page_number)
+    return render(request,  "app-recipes.html", context={"recipes": page},)
 
 def dashboard(request):
 
     recipes = Recipe.objects.count()
-    return render(request, "dashboard.html", context={"recipes": recipes,})
+
+    recipeplans = RecipePlan.objects.count()
+    return render(request, "dashboard.html", context={"recipes": recipes,"recipeplans":recipeplans,})
+
 
 
 def show_recipe_id(request, id):
