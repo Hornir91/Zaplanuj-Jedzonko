@@ -70,7 +70,7 @@ def modify_recipe(request, id):
     return render(request, "app-edit-recipe.html", {"id": id})
 
 def schedules(request):
-    plans = Plan.objects.all()
+    plans = Plan.objects.all().order_by('name')
     paginator = Paginator(plans, 50)
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
