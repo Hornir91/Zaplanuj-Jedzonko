@@ -25,7 +25,7 @@ urlpatterns = [
     re_path(r'^recipe/(?P<id>(\d)+/$)', show_recipe_id),
     path('recipe/add/', add_recipe),
     re_path(r'^recipe/modify/(?P<id>(\d)+/$)', modify_recipe),
-    re_path(r'^schedule/(?P<id>(\d)+/$)', schedule_details),
+    re_path(r'^plan/(?P<id>\d+)$', schedule_details),
     path('plan/list/', schedules),
     path('plan/add/', add_schedule),
     path('plan/add-recipe/', add_recipe_to_schedule)

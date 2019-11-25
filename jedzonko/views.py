@@ -77,7 +77,15 @@ def schedules(request):
     return render(request, "app-schedules.html", context={"plans": page},)
 
 def schedule_details(request, id):
-    return render(request, "app-details-schedules.html", {"id": id})
+    plans = Plan.objects.get(id=id)
+    recipeplans = RecipePlan.objects.filter (id=id)
+    recipes = Recipe.objects.filter(recipeplan = id)
+    recipes_list = ""
+    for recipe in recipes:
+        recipes_list += f"{recipe.name}"
+
+    return render(request,"app-details-schedules.html", context={"recipeplans": recipeplans,"plans": plans, "recipes": recipes_list})
+
 
 def add_schedule(request):
     return render(request, "app-add-schedules.html")
