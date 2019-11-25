@@ -33,6 +33,9 @@ class DayChoices(Enum):
 class DayName(models.Model):
     name = models.CharField(max_length=5, choices=[(tag, tag.value) for tag in DayChoices])  # To use it just type DayChoices.<day> (eg. DayChoices.Sat)
 
+    def __str__(self):
+        return f"{self.name}"
+
 class MealNames(Enum):
     Breakfast = "Breakfast"
     Lunch = "Lunch"
@@ -45,4 +48,7 @@ class RecipePlan(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     day_name = models.ForeignKey(DayName, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.meal_name} {self.recipe} {self.plan} {self.day_name}"
 
