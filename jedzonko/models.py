@@ -31,7 +31,7 @@ class DayChoices(Enum):
     Sun = "Sunday"
 
 class DayName(models.Model):
-    name = models.CharField(max_length=5, choices=[(tag, tag.value) for tag in DayChoices])  # To use it just type DayChoices.<day> (eg. DayChoices.Sat)
+    name = models.CharField(max_length=15, choices=[(tag, tag.value) for tag in DayChoices])  # To use it just type DayChoices.<day> (eg. DayChoices.Sat)
 
 class MealNames(Enum):
     Breakfast = "Breakfast"
