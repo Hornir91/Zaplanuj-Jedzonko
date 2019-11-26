@@ -33,8 +33,12 @@ def recipes(request):
 
 def dashboard(request):
     recipes = Recipe.objects.count()
-    recipeplans = RecipePlan.objects.count()
-    return render(request, "dashboard.html", context={"recipes": recipes, "recipeplans": recipeplans})
+    plans = Plan.objects.count()
+    last_plan = Plan.objects.all().order_by('-created')
+    last_plan_added = last_plan[0]
+    plan_meals = last_plan_added.recipeplan_set.all().order_by('day_name')
+    return render(request, "dashboard.html", context={"recipes": recipes, "recipeplans": plans,
+                                                      "last_plan_added": last_plan_added, "plan_meals": plan_meals})
 
 
 
