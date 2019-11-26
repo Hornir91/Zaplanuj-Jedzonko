@@ -41,10 +41,12 @@ def dashboard(request):
 def show_recipe_id(request, id):
     return render(request, "app-recipe-details.html", {"id": id})
 
+from django import forms
 
 @csrf_exempt
 def add_recipe(request):
     if request.method == "GET":
+        # msg = request.POST.get("dupa")
         return render(request, "app-add-recipe.html")
     if request.method == "POST":
         name = request.POST.get("name")
@@ -53,7 +55,8 @@ def add_recipe(request):
         ingredients = request.POST.get("ingredients")
         preparing = request.POST.get("preparing")
         if description == "" or name == "" or preparation_time == "" or ingredients == "" or preparing == "":
-            # return HttpResponseRedirect (request, "/recipe/add/")
+            # msg = "dupa"
+            # return render (request, "/recipe/add", msg)
             return HttpResponse (f'"Wypełnij poprawnie wszystkie pola"<br><br> <a href="/recipe/add/">wróć do dodawania przepisu</a>')
         else:
             t = Recipe()
@@ -87,8 +90,19 @@ def schedule_details(request, id):
     return render(request,"app-details-schedules.html", context={"recipeplans": recipeplans,"plans": plans, "recipes": recipes_list})
 
 
+@csrf_exempt
 def add_schedule(request):
-    return render(request, "app-add-schedules.html")
+    if request.method == "GET":
+        return render(request, "app-add-schedules.html")
+    if request.method == "POST":
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        x = Plan()
+        x.name = name
+        x.description = description
+        x.save()
+        return HttpResponseRedirect ("/plan/list")
+
 
 def add_recipe_to_schedule(request):
     return render(request, "app-schedules-meal-recipe.html")
