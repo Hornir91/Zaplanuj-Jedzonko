@@ -46,8 +46,11 @@ from django import forms
 @csrf_exempt
 def add_recipe(request):
     if request.method == "GET":
-        # msg = request.POST.get("dupa")
-        return render(request, "app-add-recipe.html")
+        if request.GET.get("msg"):
+            msg = "Wypełnij poprawnie wszystkie pola"
+            return render(request, "app-add-recipe.html", {"msg":msg})
+        else:
+            return render(request, "app-add-recipe.html")
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
@@ -55,9 +58,7 @@ def add_recipe(request):
         ingredients = request.POST.get("ingredients")
         preparing = request.POST.get("preparing")
         if description == "" or name == "" or preparation_time == "" or ingredients == "" or preparing == "":
-            # msg = "dupa"
-            # return render (request, "/recipe/add", msg)
-            return HttpResponse (f'"Wypełnij poprawnie wszystkie pola"<br><br> <a href="/recipe/add/">wróć do dodawania przepisu</a>')
+            return HttpResponseRedirect ("/recipe/add/?msg=wiadomosc")
         else:
             t = Recipe()
             t.name = name
@@ -93,15 +94,22 @@ def schedule_details(request, id):
 @csrf_exempt
 def add_schedule(request):
     if request.method == "GET":
-        return render(request, "app-add-schedules.html")
+        if request.GET.get("msg"):
+            msg = "Wypełnij poprawnie wszystkie pola"
+            return render(request, "app-add-schedules.html", {"msg":msg})
+        else:
+            return render(request, "app-add-schedules.html")
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
-        x = Plan()
-        x.name = name
-        x.description = description
-        x.save()
-        return HttpResponseRedirect ("/plan/list")
+        if name == "" or description == "":
+            return HttpResponseRedirect ("/plan/add/?msg=wiadomosc")
+        else:
+            x = Plan()
+            x.name = name
+            x.description = description
+            x.save()
+            return HttpResponseRedirect (f"/plan/{x.id}/details")
 
 
 def add_recipe_to_schedule(request):

@@ -28,5 +28,5 @@ urlpatterns = [
     re_path(r'^plan/(?P<id>\d+)$', schedule_details),
     path('plan/list/', schedules),
     path('plan/add/', add_schedule),
-    path('plan/add-recipe/', add_recipe_to_schedule)
+    path('plan/add-recipe/', add_recipe_to_schedule),
 ]
