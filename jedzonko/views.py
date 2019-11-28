@@ -43,7 +43,11 @@ def dashboard(request):
 
 
 def show_recipe_id(request, id):
-    return render(request, "app-recipe-details.html", {"id": id})
+    recipe = Recipe.objects.get(pk=id)
+    recipe_ingredients = recipe.ingredients
+    recipe_ingredients_split = recipe_ingredients.split(", ")
+    return render(request, "app-recipe-details.html", {"id": id, "recipe": recipe,
+                                                       "recipe_ingredients_split": recipe_ingredients_split})
 
 from django import forms
 
