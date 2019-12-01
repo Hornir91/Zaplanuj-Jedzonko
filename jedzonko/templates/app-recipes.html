@@ -6,11 +6,12 @@
     <div class="row border-bottom border-3 p-1 m-1">
         <div class="col noPadding"><h3 class="color-header text-uppercase">Lista
             Przepisów {{ msg }}</h3></div>
-
-        <div class="col noPadding d-flex justify-content-end mb-2"><a
-                href="/recipe/add"
-                class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj
-            przepis</a></div>
+        <div class="col d-flex justify-content-end mb-2 noPadding">
+            <a href="/recipe/add" class="btn btn-success rounded-0 text-light m-1">Dodaj przepis</a>
+    </div>
+    <div class="col d-flex justify-content-end mb-2 noPadding">
+            <a href="/plan/add-recipe/" class="btn btn-success rounded-0 text-light m-1">Dodaj przepis do planu</a>
+    </div>
     </div>
      {% for recipe in recipes.object_list %}
     <table class="table border-bottom schedules-content">
