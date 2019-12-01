@@ -22,7 +22,7 @@ urlpatterns = [
     path('', IndexView.as_view()),
     path('recipe/list/', recipes),
     path('main/', dashboard),
-    re_path(r'^recipe/(?P<id>(\d)+)/$', show_recipe_id),
+    re_path(r'^recipe/(?P<id>\d+)$', show_recipe_id),
     path('recipe/add/', add_recipe),
     re_path(r'^recipe/modify/(?P<id>(\d)+)/$', modify_recipe),
     re_path(r'^plan/(?P<id>\d+)$', schedule_details),

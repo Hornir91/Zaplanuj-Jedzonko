@@ -102,9 +102,11 @@ def schedule_details(request, id):
     recipes_list = ""
     for recipe in recipes:
         recipes_list += f"{recipe.name}"
+    recipes_list_id = ""
+    for recipe in recipes:
+        recipes_list_id += f"{recipe.id}"
+    return render(request,"app-details-schedules.html", context={"recipeplans": recipeplans,"plans": plans, "recipes": recipes_list, "recipes_id": recipes_list_id,})
 
-    return render(request, "app-details-schedules.html", context={"recipeplans": recipeplans,"plans": plans,
-                                                                  "recipes": recipes_list})
 
 
 @csrf_exempt
