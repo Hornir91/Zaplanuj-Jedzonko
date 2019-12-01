@@ -44,6 +44,11 @@
             </tr>
             </tbody>
         </table>
+        <form method="post" action="/recipe/{{ id }}/">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ id }}">
+            <input type="submit" value="Polub przepis">
+        </form>
 
         <div class="row d-flex">
             <div class="col-5 border-bottom border-3"><h3
