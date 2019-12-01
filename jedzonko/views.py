@@ -95,7 +95,7 @@ def schedule_details(request, id):
 def add_schedule(request):
     if request.method == "GET":
         if request.GET.get("msg"):
-            msg = "Wypełnij poprawnie wszystkie pola"
+            msg = request.GET.get("msg")
             return render(request, "app-add-schedules.html", {"msg":msg})
         else:
             return render(request, "app-add-schedules.html")
@@ -103,7 +103,7 @@ def add_schedule(request):
         name = request.POST.get("name")
         description = request.POST.get("description")
         if name == "" or description == "":
-            return HttpResponseRedirect ("/plan/add/?msg=wiadomosc")
+            return HttpResponseRedirect ("/plan/add/?msg=Wypełnij poprawnie wszystkie pola")
         else:
             x = Plan()
             x.name = name
@@ -112,6 +112,23 @@ def add_schedule(request):
             return HttpResponseRedirect (f"/plan/{x.id}/details")
 
 
+@csrf_exempt
 def add_recipe_to_schedule(request):
-    return render(request, "app-schedules-meal-recipe.html")
+    plans = Plan.objects.all()
+    recipes = Recipe.objects.all()
+    # days = DayChoices.objects.all()
+    if request.method == "GET":
+        return render(request, "app-schedules-meal-recipe.html", {"plans":plans, "recipes":recipes})
+    if request.method == "POST":
+        # plan_name = request.POST.get("plan_name")
+        # meal_name = request.POST.get("meal_name")
+        # number = request.POST.get("number")
+        # recipe = request.POST.get("recipe")
+        # day = request.POST.get("day")
+        # m1 = RecipePlan()
+        # m1.meal_name = meal_name
+        # m1.day_name_id = day
+        # m1.plan_id = plan_name
+        # m1.
+        pass
 
