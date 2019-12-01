@@ -41,13 +41,20 @@ def dashboard(request):
                                                       "last_plan_added": last_plan_added, "plan_meals": plan_meals})
 
 
-
+@csrf_exempt
 def show_recipe_id(request, id):
-    recipe = Recipe.objects.get(pk=id)
-    recipe_ingredients = recipe.ingredients
-    recipe_ingredients_split = recipe_ingredients.split(", ")
-    return render(request, "app-recipe-details.html", {"id": id, "recipe": recipe,
-                                                       "recipe_ingredients_split": recipe_ingredients_split})
+    if request.method == "GET":
+        recipe = Recipe.objects.get(pk=id)
+        recipe_ingredients = recipe.ingredients
+        recipe_ingredients_split = recipe_ingredients.split(", ")
+        return render(request, "app-recipe-details.html", {"id": id, "recipe": recipe,
+                                                           "recipe_ingredients_split": recipe_ingredients_split})
+    if request.method == "POST":
+        id = request.POST.get("id")
+        liked_recipe = Recipe.objects.get(pk=id)
+        liked_recipe.votes += 1
+        liked_recipe.save()
+        return HttpResponseRedirect(f"/recipe/{id}/")
 
 from django import forms
 
@@ -66,7 +73,7 @@ def add_recipe(request):
         ingredients = request.POST.get("ingredients")
         preparing = request.POST.get("preparing")
         if description == "" or name == "" or preparation_time == "" or ingredients == "" or preparing == "":
-            return HttpResponseRedirect ("/recipe/add/?msg=wiadomosc")
+            return HttpResponseRedirect("/recipe/add/?msg=wiadomosc")
         else:
             t = Recipe()
             t.name = name
@@ -75,7 +82,7 @@ def add_recipe(request):
             t.preparing = preparing
             t.preparation_time = preparation_time
             t.save()
-            return HttpResponseRedirect ("/recipe/list")
+            return HttpResponseRedirect("/recipe/list")
 
 
 def modify_recipe(request, id):
@@ -96,7 +103,8 @@ def schedule_details(request, id):
     for recipe in recipes:
         recipes_list += f"{recipe.name}"
 
-    return render(request,"app-details-schedules.html", context={"recipeplans": recipeplans,"plans": plans, "recipes": recipes_list})
+    return render(request, "app-details-schedules.html", context={"recipeplans": recipeplans,"plans": plans,
+                                                                  "recipes": recipes_list})
 
 
 @csrf_exempt
