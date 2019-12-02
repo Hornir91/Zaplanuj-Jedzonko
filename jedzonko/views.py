@@ -141,7 +141,7 @@ def add_recipe_to_schedule(request):
         return render(request, "app-schedules-meal-recipe.html", {"plans": plans, "recipes": recipes, "days": days,
                                                                   "meal_names": meal_names})
     if request.method == "POST":
-        plan_name = request.POST.get("plan_name")
+        plan_name = request.POST.get("plan_recipe")
         meal_name = request.POST.get("meal_name")
         number = request.POST.get("number")
         recipe = request.POST.get("recipe")
@@ -151,7 +151,7 @@ def add_recipe_to_schedule(request):
         m1.day_name_id = day
         m1.plan_id = plan_name
         m1.order = number
-        m1.recipe = recipe
+        m1.recipe_id = recipe
         m1.save()
         return HttpResponseRedirect("/plan/add-recipe/")
 
