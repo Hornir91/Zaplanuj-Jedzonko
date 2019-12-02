@@ -7,12 +7,12 @@
             <h3 class="color-header text-uppercase">DODAJ PRZEPIS DO PLANU</h3>
         </div>
         <div class="col d-flex justify-content-end mb-2 noPadding">
-            <a href="#" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</a>
+            <a href="/plan/add-recipe/" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</a>
         </div>
     </div>
 
     <div class="schedules-content">
-        <form>
+        <form method="post" action="/plan/add-recipe/">
             <div class="form-group row">
                 <label for="choosePlan"
                        class="col-sm-2 label-size col-form-label">
@@ -22,7 +22,7 @@
                     <select name="plan_recipe" class="form-control" id="choosePlan" name="plan_name">
                         <option value="">Select...</option>
                         {% for plan in plans %}
-                            <option value="{{plan.name}}">{{plan.name}}</option>
+                            <option value="{{ plan.id }}">{{ plan.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -34,11 +34,9 @@
                 <div class="col-sm-10">
                     <select class="form-control" id="day" name="meal_name">
                         <option value="">Select...</option>
-                        <option value="sniadanie">śniadanie</option>
-                        <option value="drugie_sniadanie">drugie śniadanie</option>
-                        <option value="obiad">obiad</option>
-                        <option value="podwieczorek">podwieczorek</option>
-                        <option value="kolacja">kolacja</option>
+                        {% for meal in meal_names %}
+                        <option value="{{ meal }}">{{ meal }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -59,7 +57,7 @@
                     <select class="form-control" id="recipie" name="recipe">
                         <option value="">Select...</option>
                         {% for recipe in recipes %}
-                            <option value="{{recipe.name}}">{{recipe.name}}</option>
+                            <option value="{{ recipe.id }}">{{ recipe.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -71,18 +69,9 @@
                 <div class="col-sm-2">
                     <select class="form-control" id="day" name="day">
                         <option value="">Select...</option>
-                        <option value="monday">poniedziałek</option>
-                        <option value="tuesday">wtorek</option>
-                        <option value="wednesday">środa</option>
-                        <option value="thursday">czwartek</option>
-                        <option value="friday">piątek</option>
-                        <option value="saturday">sobota</option>
-                        <option value="sunday">niedziela</option>
-
-{#                        <option value="">Select...</option>#}
-{#                        {% for day in days %}#}
-{#                        <option value="{{ day }}">{{ day }}</option>#}
-{#                        {% endfor %}#}
+                        {% for day in days %}
+                        <option value="{{ day.id }}">{{ day.name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
