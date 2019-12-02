@@ -93,7 +93,7 @@ def schedules(request):
     paginator = Paginator(plans, 50)
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
-    return render(request, "app-schedules.html", context={"plans": page},)
+    return render(request, "app-schedules.html", context={"plans": page})
 
 def schedule_details(request, id):
     plans = Plan.objects.get(id=id)
@@ -105,7 +105,8 @@ def schedule_details(request, id):
     recipes_list_id = ""
     for recipe in recipes:
         recipes_list_id += f"{recipe.id}"
-    return render(request,"app-details-schedules.html", context={"recipeplans": recipeplans,"plans": plans, "recipes": recipes_list, "recipes_id": recipes_list_id,})
+    return render(request, "app-details-schedules.html", context={"recipeplans": recipeplans, "plans": plans,
+                                                                 "recipes": recipes_list, "recipes_id": recipes_list_id})
 
 
 
@@ -121,32 +122,36 @@ def add_schedule(request):
         name = request.POST.get("name")
         description = request.POST.get("description")
         if name == "" or description == "":
-            return HttpResponseRedirect ("/plan/add/?msg=Wypełnij poprawnie wszystkie pola")
+            return HttpResponseRedirect("/plan/add/?msg=Wypełnij poprawnie wszystkie pola")
         else:
             x = Plan()
             x.name = name
             x.description = description
             x.save()
-            return HttpResponseRedirect (f"/plan/{x.id}/details")
+            return HttpResponseRedirect(f"/plan/{x.id}/details")
 
 
 @csrf_exempt
 def add_recipe_to_schedule(request):
-    plans = Plan.objects.all()
-    recipes = Recipe.objects.all()
-    # days = DayChoices.objects.all()
     if request.method == "GET":
-        return render(request, "app-schedules-meal-recipe.html", {"plans":plans, "recipes":recipes})
+        plans = Plan.objects.all()
+        recipes = Recipe.objects.all()
+        days = DayName.objects.all()
+        meal_names = [x.value for x in MealNames]
+        return render(request, "app-schedules-meal-recipe.html", {"plans": plans, "recipes": recipes, "days": days,
+                                                                  "meal_names": meal_names})
     if request.method == "POST":
-        # plan_name = request.POST.get("plan_name")
-        # meal_name = request.POST.get("meal_name")
-        # number = request.POST.get("number")
-        # recipe = request.POST.get("recipe")
-        # day = request.POST.get("day")
-        # m1 = RecipePlan()
-        # m1.meal_name = meal_name
-        # m1.day_name_id = day
-        # m1.plan_id = plan_name
-        # m1.
-        pass
+        plan_name = request.POST.get("plan_name")
+        meal_name = request.POST.get("meal_name")
+        number = request.POST.get("number")
+        recipe = request.POST.get("recipe")
+        day = request.POST.get("day")
+        m1 = RecipePlan()
+        m1.meal_name = meal_name
+        m1.day_name_id = day
+        m1.plan_id = plan_name
+        m1.order = number
+        m1.recipe = recipe
+        m1.save()
+        return HttpResponseRedirect("/plan/add-recipe/")
 
