@@ -17,6 +17,6 @@ It is a simple website creating for people who wants to plan their meals for bet
 
 ## Setup
 To launch the project simply for the project and download required libraries in your IDE with command:
-'''
+```
 pip3 install -r requirements.txt
-'''
+```
