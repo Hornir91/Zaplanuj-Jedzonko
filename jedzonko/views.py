@@ -97,8 +97,8 @@ def schedules(request):
 
 def schedule_details(request, id):
     plans = Plan.objects.get(id=id)
-    recipeplans = RecipePlan.objects.filter (id=id)
-    recipes = Recipe.objects.filter(recipeplan = id)
+    recipeplans = RecipePlan.objects.filter(id=id)
+    recipes = Recipe.objects.filter(recipeplan=id)
     recipes_list = ""
     for recipe in recipes:
         recipes_list += f"{recipe.name}"
