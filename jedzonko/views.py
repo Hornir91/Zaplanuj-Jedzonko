@@ -109,7 +109,6 @@ def schedule_details(request, id):
                                                                  "recipes": recipes_list, "recipes_id": recipes_list_id})
 
 
-
 @csrf_exempt
 def add_schedule(request):
     if request.method == "GET":
