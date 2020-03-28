@@ -5,6 +5,7 @@ Simple website created with Django framework and PostgreSQL DB using Scrum metho
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Sources](#sources)
 
 ## General info
 It is a simple website creating for people who wants to plan their meals for better control of taken calories. It provides several features:
@@ -20,3 +21,6 @@ To launch the project fork it and download required libraries in your IDE with c
 ```
 pip3 install -r requirements.txt
 ```
+
+## Sources
+The front-end of the project was provided by Coders Lab IT School.
