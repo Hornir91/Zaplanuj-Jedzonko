@@ -4,7 +4,7 @@ Simple website created with Django framework and PostgreSQL DB using Scrum metho
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
+* [Requirements](#requirements)
 * [Sources](#sources)
 
 ## General info
@@ -16,8 +16,8 @@ It is a simple website creating for people who wants to plan their meals for bet
 * Django 2.2.6
 * PostgreSQL database
 
-## Setup
-To launch the project fork it and download required libraries in your IDE with command:
+## Requirements
+All required packages are mentioned in requirements.txt file. To install it run the following command:
 ```
 pip3 install -r requirements.txt
 ```
